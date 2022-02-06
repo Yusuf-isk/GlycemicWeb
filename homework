@@ -24,9 +24,10 @@
     public Foods foodsDelete( Foods foods ) {
         Optional<Foods> oFoods = fRepo.findByNameEqualsIgnoreCase(foods.getName());
               Optional<String> oUserName = auditAwareConfig.getCurrentAuditor();
+              
         if (!oFoods.isPresent() ) {
             return null;
-        } else if(foods.getCreatedBy() == oUserName.get() )
+        } else if(oFoods.getCreatedBy().equals(oUserName.get()))
         {
         foods.setEnabled(false);
             return fRepo.delete(foods);
