@@ -1,0 +1,39 @@
+  // removing a food //restcontroller
+    @DeleteMapping("/delete")
+    public Map<REnum, Object> delete(@RequestBody Foods foods) {
+        Map<REnum, Object> hm = new LinkedHashMap<>();
+            Foods f = foodService.foodsDelete(foods);
+        if ( f == null ) {
+            hm.put(REnum.status, false);
+            hm.put(REnum.message, "Bu ürün kayıtlarda bulunamadı");
+            hm.put(REnum.result, f);
+        }else if(f == false){
+            hm.put(REnum.status, false);
+            hm.put(REnum.message, "Sadece kendi ürünlerinizi silebilirsiniz");
+            hm.put(REnum.result, f);
+        }else {
+            hm.put(REnum.status, true);
+            hm.put(REnum.message, "Ürün silme işlemi başarılı");
+            hm.put(REnum.result, f);
+        }
+        return hm;
+    }
+    
+    
+    //removing a food //service
+    public Foods foodsDelete( Foods foods ) {
+        Optional<Foods> oFoods = fRepo.findByNameEqualsIgnoreCase(foods.getName());
+              Optional<String> oUserName = auditAwareConfig.getCurrentAuditor();
+              
+        if (!oFoods.isPresent() ) {
+            return null;
+        } else if(oFoods.getCreatedBy().equals(oUserName.get()))
+        {
+        foods.setEnabled(false);
+            return fRepo.delete(foods);
+        } else {
+            return false;
+        }
+        
+        
+    }
