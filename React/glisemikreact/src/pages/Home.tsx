@@ -3,6 +3,7 @@ import { allFoodsList } from '../services/Services';
 import { ToastContainer, toast } from 'react-toastify';
 import { IFoods, ResultFoods } from '../models/IFoods';
 import axios from 'axios'
+import GridExampleDividedPhrase from '../components/try/TryGrid'
 export default function Home() {
 
   const [foodsArr, setFoodsArr] = useState<ResultFoods[]>([]);
@@ -26,7 +27,8 @@ export default function Home() {
   <>
     <ToastContainer />
     <h1>Welcome Home</h1>
-   
+   <GridExampleDividedPhrase></GridExampleDividedPhrase>
+   {foodsArr}
   </>
   );
 }
