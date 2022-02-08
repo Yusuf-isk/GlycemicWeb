@@ -1,0 +1,28 @@
+
+{"status":  true,
+    "message":  "x",
+    "result":
+    [  
+     {"createdDate":17,"modifiedDate":36,"createdBy":"Bucephala clangula","modifiedBy":"Phoca vitulina","gid":66,"cid":68,"name":"Geochelone elegans","glycemicindex":11,"image":"http://dummyimage.com/229x100.png/5fa2dd/ffffff","source":"Ronstring","enabled":false},
+    {"createdDate":7,"modifiedDate":9,"createdBy":"Paroaria gularis","modifiedBy":"Heloderma horridum","gid":60,"cid":12,"name":"Cervus elaphus","glycemicindex":39,"image":"http://dummyimage.com/225x100.png/5fa2dd/ffffff","source":"Bitchip","enabled":true},
+    {"createdDate":27,"modifiedDate":41,"createdBy":"Phoca vitulina","modifiedBy":"Zenaida asiatica","gid":81,"cid":31,"name":"Meles meles","glycemicindex":25,"image":"http://dummyimage.com/199x100.png/ff4444/ffffff","source":"Biodex","enabled":true},
+    {"createdDate":65,"modifiedDate":97,"createdBy":"Dasyurus viverrinus","modifiedBy":"Dendrocygna viduata","gid":69,"cid":68,"name":"Falco peregrinus","glycemicindex":4,"image":"http://dummyimage.com/242x100.png/ff4444/ffffff","source":"Subin","enabled":true},
+    {"createdDate":65,"modifiedDate":73,"createdBy":"Varanus sp.","modifiedBy":"Bettongia penicillata","gid":34,"cid":78,"name":"Dasyurus maculatus","glycemicindex":97,"image":"http://dummyimage.com/205x100.png/dddddd/000000","source":"Sonsing","enabled":true},
+    {"createdDate":33,"modifiedDate":29,"createdBy":"Manouria emys","modifiedBy":"Dusicyon thous","gid":54,"cid":88,"name":"Lemur catta","glycemicindex":37,"image":"http://dummyimage.com/219x100.png/dddddd/000000","source":"Home Ing","enabled":false},
+    {"createdDate":91,"modifiedDate":46,"createdBy":"Ploceus intermedius","modifiedBy":"Charadrius tricollaris","gid":99,"cid":23,"name":"Tauraco porphyrelophus","glycemicindex":1,"image":"http://dummyimage.com/205x100.png/cc0000/ffffff","source":"Ventosanzap","enabled":true},
+    {"createdDate":91,"modifiedDate":84,"createdBy":"Nyctanassa violacea","modifiedBy":"Choriotis kori","gid":98,"cid":83,"name":"Felis concolor","glycemicindex":6,"image":"http://dummyimage.com/136x100.png/5fa2dd/ffffff","source":"Tin","enabled":true},
+    {"createdDate":98,"modifiedDate":90,"createdBy":"Phalacrocorax albiventer","modifiedBy":"Canis lupus baileyi","gid":64,"cid":20,"name":"Merops sp.","glycemicindex":21,"image":"http://dummyimage.com/106x100.png/ff4444/ffffff","source":"Viva","enabled":false},
+    {"createdDate":17,"modifiedDate":70,"createdBy":"Aegypius tracheliotus","modifiedBy":"Psophia viridis","gid":65,"cid":79,"name":"Psittacula krameri","glycemicindex":99,"image":"http://dummyimage.com/118x100.png/dddddd/000000","source":"Toughjoyfax","enabled":false},
+    {"createdDate":84,"modifiedDate":35,"createdBy":"Phoenicopterus ruber","modifiedBy":"Uraeginthus angolensis","gid":54,"cid":88,"name":"Chauna torquata","glycemicindex":11,"image":"http://dummyimage.com/154x100.png/ff4444/ffffff","source":"Bamity","enabled":true},
+    {"createdDate":73,"modifiedDate":84,"createdBy":"Corythornis cristata","modifiedBy":"unavailable","gid":81,"cid":96,"name":"Lepilemur rufescens","glycemicindex":59,"image":"http://dummyimage.com/164x100.png/5fa2dd/ffffff","source":"Keylex","enabled":true},
+    {"createdDate":15,"modifiedDate":23,"createdBy":"Bassariscus astutus","modifiedBy":"Odocoileus hemionus","gid":23,"cid":79,"name":"Geococcyx californianus","glycemicindex":55,"image":"http://dummyimage.com/185x100.png/ff4444/ffffff","source":"Tresom","enabled":true},
+    {"createdDate":81,"modifiedDate":91,"createdBy":"Stercorarius longicausus","modifiedBy":"Pelecanus occidentalis","gid":9,"cid":99,"name":"Diomedea irrorata","glycemicindex":19,"image":"http://dummyimage.com/180x100.png/dddddd/000000","source":"Solarbreeze","enabled":true},
+    {"createdDate":91,"modifiedDate":35,"createdBy":"Crocuta crocuta","modifiedBy":"Suricata suricatta","gid":11,"cid":66,"name":"Ratufa indica","glycemicindex":93,"image":"http://dummyimage.com/243x100.png/5fa2dd/ffffff","source":"Pannier","enabled":true},
+    {"createdDate":76,"modifiedDate":98,"createdBy":"Loris tardigratus","modifiedBy":"Francolinus coqui","gid":73,"cid":31,"name":"Ctenophorus ornatus","glycemicindex":55,"image":"http://dummyimage.com/151x100.png/dddddd/000000","source":"Latlux","enabled":false},
+    {"createdDate":23,"modifiedDate":35,"createdBy":"Acrantophis madagascariensis","modifiedBy":"Tayassu pecari","gid":27,"cid":2,"name":"Canis aureus","glycemicindex":72,"image":"http://dummyimage.com/138x100.png/dddddd/000000","source":"Redhold","enabled":true},
+    {"createdDate":96,"modifiedDate":4,"createdBy":"Pseudoleistes virescens","modifiedBy":"Varanus salvator","gid":29,"cid":84,"name":"Terathopius ecaudatus","glycemicindex":6,"image":"http://dummyimage.com/151x100.png/ff4444/ffffff","source":"Cardify","enabled":false},
+    {"createdDate":23,"modifiedDate":34,"createdBy":"Phoenicopterus ruber","modifiedBy":"Ardea golieth","gid":13,"cid":50,"name":"Hydrochoerus hydrochaeris","glycemicindex":36,"image":"http://dummyimage.com/172x100.png/ff4444/ffffff","source":"It","enabled":false},
+    {"createdDate":42,"modifiedDate":87,"createdBy":"Cebus nigrivittatus","modifiedBy":"Phascogale calura","gid":45,"cid":77,"name":"Neotis denhami","glycemicindex":69,"image":"http://dummyimage.com/234x100.png/cc0000/ffffff","source":"Latlux","enabled":false}
+]
+
+}

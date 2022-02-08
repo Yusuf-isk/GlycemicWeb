@@ -1,34 +1,55 @@
 import React, { useEffect, useState } from 'react';
-import { allFoodsList } from '../services/Services';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { IFoods, ResultFoods } from '../models/IFoods';
-import axios from 'axios'
-import GridExampleDividedPhrase from '../components/try/TryGrid'
+import data from '../data/data.json'
+import {  Item } from 'semantic-ui-react'
+import Food from '../components/Food/Food'
+
+import BottomPagination from '../components/BottomPagination/BottomPagination'
 export default function Home() {
 
   const [foodsArr, setFoodsArr] = useState<ResultFoods[]>([]);
-
+  const [isloading,setIsloading]= useState(false);
  
+async function getData() {
+  setIsloading(true);
+  
+
+  const dt:IFoods = data;
+
+await  setFoodsArr(dt.result!)
+
+
+
+
+setIsloading(false)
+}
+
   useEffect(() => {
-    
-    toast.loading("Yükleniyor.")
-    axios.get("http://localhost:8080/api/1.0/users").then( res => {
-        const dt:IFoods = res.data;
-        setFoodsArr( dt.result! )
-        toast.dismiss();
-    }).catch( err => {
-        toast.dismiss();
-        toast.error( ""+err )
-    })
+    getData();
+  
 
   }, []);
 
+ 
   return (
-  <>
-    <ToastContainer />
-    <h1>Welcome Home</h1>
-   <GridExampleDividedPhrase></GridExampleDividedPhrase>
-   {foodsArr}
-  </>
-  );
+    <div style={{  }}>
+      
+      <ToastContainer/>
+        {isloading ? <div>Loading...</div> : 
+        <div style={{
+          marginTop:20
+        }}> <h1>Welcome Home</h1>
+      <Item.Group divided>
+         { foodsArr.map((item, index) => 
+       <Food item={item}></Food>
+    )}
+     </Item.Group>
+          <div style={{}}>
+            <BottomPagination/>
+            </div>
+
+          </div>}
+    </div>
+    );
 }
