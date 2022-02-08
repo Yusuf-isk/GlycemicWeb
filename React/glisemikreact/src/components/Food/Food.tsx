@@ -9,14 +9,17 @@ type Props = {
 };
 
 const Food: React.FC<Props> = ({ item }) => (
-  <Item >
+  <Item className='itemStyle'>
   <Item.Image size='small' src={item.image}/>
 
   <Item.Content>
     <Item.Header as='a'>{item.name}</Item.Header>
     <Item.Meta>Description</Item.Meta>
     <Item.Description>
+   
       index:{item.glycemicindex}
+      
+    
     </Item.Description>
     <Item.Extra>Additional Details</Item.Extra>
   </Item.Content>
