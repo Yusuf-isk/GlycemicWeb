@@ -12,5 +12,20 @@ const axiosConfig = axios.create({
 
 // All Foods List
 export const allFoodsList = () => {
-    return axiosConfig.get("api/1.0/users");
+    return axiosConfig.get("foods/list");
+}
+export const userAndAdminLogin = ( email:string, password: string ) => {
+    
+    const conf = axios.create({
+        baseURL: process.env.REACT_APP_BASE_URL,
+        auth: {
+            username: email,
+            password: password
+        }
+    })
+    const params = {
+        email: email
+    }
+    return conf.post("register/login", {} , {params: params},)
+
 }
