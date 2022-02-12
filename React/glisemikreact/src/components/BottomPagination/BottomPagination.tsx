@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react'
 import { Menu } from 'semantic-ui-react'
 
-export default function BottomPagination ()  {
+export default function BottomPagination (props)  {
     const [activeItem,setActiveItem] = useState("1");
 
   

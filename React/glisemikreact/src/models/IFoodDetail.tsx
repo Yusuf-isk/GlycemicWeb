@@ -1,8 +1,8 @@
 
-export interface IFoods {
+export interface IFoodDetail {
     status?:  boolean;
     message?: string;
-    result?:  ResultFoods[];
+    result?:  ResultFoods;
 }
 
 export interface ResultFoods {
