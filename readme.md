@@ -10,3 +10,14 @@
 **Server:** Spring 
 
   
+
+## External Files
+
+[Project Images](https://linktodocumentation)
+
+  
+## Home Page 
+
+![Uygulama Ekran Görüntüsü](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+  
