@@ -2,14 +2,11 @@ package com.works.glycemic.config;
 
 import com.works.glycemic.services.UserService;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     final UserService service;
@@ -26,15 +23,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // hangi yöntemle giriş yapılarak, rollere göre hangi servis kullanılcak?
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
                 .cors().and()
                 .httpBasic()
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers("/foods/save","/foods/userFoodList","/foods/foodDelete","/foods/foodUpdate").hasAnyRole("user", "admin")
-                .antMatchers("/foods/list").hasAnyRole("global","user", "admin")
-                .antMatchers("/register/**").permitAll()
+                .antMatchers("/foods/save","/foods/userFoodList","/foods/foodDelete","/foods/foodUpdate", "/register/login").hasAnyRole("user", "admin")
+                .antMatchers("/foods/adminWaitFoodList").hasRole("admin")
+                .antMatchers("/foods/list", "foods/detail/**").hasAnyRole("global","user", "admin")
+                .antMatchers("/register/userRegister", "/register/adminRegister").permitAll()
                 .and()
                 .csrf().disable()
                 .formLogin().disable()
