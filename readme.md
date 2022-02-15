@@ -18,6 +18,6 @@
   
 ## Home Page 
 
-![Uygulama Ekran Görüntüsü](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Uygulama Ekran Görüntüsü](https://www.desktopbackground.org/download/o/2012/03/02/352806_hd-wallpapers-wide-pack-1400x900-picture-collection-photo-22-of_1440x900_h.jpg)
 
   
