@@ -13,7 +13,7 @@
 
 ## External Files
 
-[Project Images](https://linktodocumentation)
+[Project Images](https://dogukankrtlz.github.io/glycemicproject/example.html)
 
   
 ## Home Page 
