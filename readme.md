@@ -5,9 +5,9 @@
  
 ## Technology Stack
 
-**Client:** React, TypeScript, Redux, 
+**Client:** React, TypeScript, Redux
 
-**Server:** Spring 
+**Server:** Spring, Spring Security, Sprin Boot
 
   
 
