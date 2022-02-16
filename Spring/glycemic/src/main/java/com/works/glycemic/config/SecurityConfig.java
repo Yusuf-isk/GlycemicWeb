@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     final UserService service;
@@ -21,20 +20,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService((service)).passwordEncoder(service.encoder());
+        auth.inMemoryAuthentication()
+                .withUser("user")
+                .password("user")
+                .roles("user")
+                .and().withUser("admin")
+                .password("{noop}admin")
+                .roles("admin");
     }
 
     // hangi yöntemle giriş yapılarak, rollere göre hangi servis kullanılcak?
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.headers().frameOptions().disable();
 
         http
                 .cors().and()
                 .httpBasic()
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers("/foods/save","/foods/userFoodList","/foods/foodDelete","/foods/foodUpdate").hasAnyRole("user", "admin")
-                .antMatchers("/foods/list").hasAnyRole("global","user", "admin")
-                .antMatchers("/register/**").permitAll()
+                .antMatchers("/foods/save","/foods/foodDelete","/foods/foodUpdate").permitAll()
+                .antMatchers( "foods/detail/**","/foods/userFoodList").permitAll()
+                .antMatchers("/foods/adminWaitFoodList").permitAll()
+
+                .antMatchers("/foods/list").hasAnyRole("user","admin")
+                .antMatchers("/register/userRegister", "/register/adminRegister","/register/login").permitAll()
                 .and()
                 .csrf().disable()
                 .formLogin().disable()

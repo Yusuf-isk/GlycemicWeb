@@ -4,6 +4,8 @@ import com.works.glycemic.config.AuditAwareConfig;
 import com.works.glycemic.models.Foods;
 import com.works.glycemic.repositories.FoodRepository;
 import com.works.glycemic.utils.REnum;
+import org.apache.commons.text.WordUtils;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +16,11 @@ public class FoodService {
 
     final FoodRepository fRepo;
     final AuditAwareConfig auditAwareConfig;
-    public FoodService(FoodRepository fRepo, AuditAwareConfig auditAwareConfig) {
+    final CacheManager cacheManager;
+    public FoodService(FoodRepository fRepo, AuditAwareConfig auditAwareConfig, CacheManager cacheManager) {
         this.fRepo = fRepo;
         this.auditAwareConfig = auditAwareConfig;
+        this.cacheManager = cacheManager;
     }
 
 
@@ -27,13 +31,26 @@ public class FoodService {
             return null;
         }else {
             foods.setEnabled(false);
+            if ( auditAwareConfig.roles().contains("ROLE_admin") ) {
+                foods.setEnabled(true);
+            }
+            String after = foods.getName().trim().replaceAll(" +", " ");
+            after = WordUtils.capitalize(after);
+            foods.setName(after);
+            foods.setUrl( charConvert( after ));
             return fRepo.save(foods);
         }
     }
 
     // food list
     public List<Foods> foodsList() {
-        return fRepo.findAll();
+        return fRepo.findByEnabledEqualsOrderByGidDesc(true);
+    }
+
+
+    // admin Wait food list
+    public List<Foods> adminWaitFoodList() {
+        return fRepo.findByEnabledEqualsOrderByGidDesc(false);
     }
 
 
@@ -101,23 +118,32 @@ public class FoodService {
                 //admin food update
                 if (auditAwareConfig.roles().contains("ROLE_admin")) {
                     userFood.setCid(food.getCid());
-                    userFood.setName(food.getName());
+                    String afterName = food.getName().trim().replaceAll(" +", " ");
+                    afterName = WordUtils.capitalize(afterName);
+                    userFood.setName(afterName);
                     userFood.setGlycemicindex(food.getGlycemicindex());
                     userFood.setImage(food.getImage());
                     userFood.setSource(food.getSource());
                     userFood.setEnabled(food.isEnabled());
-                    hm.put(REnum.result, fRepo.save(userFood));
+                    if ( food.isEnabled() ) {
+                        cacheManager.getCache("foods_list").clear();
+                    }
+                    userFood.setUrl( charConvert(userFood.getName()) );
+                    hm.put(REnum.result, fRepo.saveAndFlush(userFood));
                 }
                 else {
                     //user food update
                     Optional<Foods> oFood = fRepo.findByCreatedByEqualsIgnoreCaseAndGidEquals(userName,food.getGid());
                     if (oFood.isPresent()) {
                         userFood.setCid(food.getCid());
-                        userFood.setName(food.getName());
+                        String afterName = food.getName().trim().replaceAll(" +", " ");
+                        afterName = WordUtils.capitalize(afterName);
+                        userFood.setName(afterName);
                         userFood.setGlycemicindex(food.getGlycemicindex());
                         userFood.setImage(food.getImage());
                         userFood.setSource(food.getSource());
-                        hm.put(REnum.result, fRepo.save(userFood));
+                        userFood.setUrl( charConvert(userFood.getName()) );
+                        hm.put(REnum.result, fRepo.saveAndFlush(userFood));
                     }
                     else {
                         hm.put(REnum.status, false);
@@ -134,6 +160,26 @@ public class FoodService {
             hm.put(REnum.message, "Bu işleme yetkiniz yok!");
         }
         return hm;
+    }
+
+
+    public static String charConvert(String word)
+    {
+        word = word.trim();
+        String convertWord = word.toLowerCase();
+        char[] oldValue = new char[] { 'ö', 'ü', 'ç', 'ı', 'ğ', 'ş' };
+        char[] newValue = new char[] { 'o', 'u', 'c', 'i', 'g', 's' };
+        for (int count = 0; count < oldValue.length; count++)
+        {
+            convertWord = convertWord.replace(oldValue[count], newValue[count]);
+            convertWord = convertWord.replaceFirst(" ", "-");
+            convertWord = convertWord.replace(" ","");
+        }
+        return convertWord;
+    }
+
+    public Optional<Foods> singleFoodUrl(String url) {
+        return fRepo.findByUrlEqualsIgnoreCaseAllIgnoreCase(url);
     }
 
 }

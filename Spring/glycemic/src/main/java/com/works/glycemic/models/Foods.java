@@ -19,10 +19,12 @@ public class Foods extends BaseModel {
     @Column(unique = true)
     private String name;
     private Integer glycemicindex;
-    @Column(length = 10000)
+    @Column(length = 100000)
     private String image;
     private String source;
     private boolean enabled;
-
-
+    private String detail;
+    private String url;
+    private String category;
+    private Integer amount=1;
 }

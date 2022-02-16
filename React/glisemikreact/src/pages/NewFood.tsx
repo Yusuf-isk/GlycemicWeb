@@ -1,105 +1,164 @@
-import React, {FormEvent,useState } from 'react';
-import { Image, Icon, InputOnChangeData, Form,Header,Segment } from 'semantic-ui-react'
-import { categories } from '../data/Datas';
+import React, { FormEvent, useState } from "react";
+import {
+  Image,
+  Icon,
+  InputOnChangeData,
+  Form,
+  Header,
+  Segment,
+} from "semantic-ui-react";
+import { categories } from "../data/Datas";
+import { foodAdd } from "../services/Services";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+function NewFood() {
+  const [name, setName] = useState("");
+  const [glycemicindex, setGlycemicindex] = useState(0);
+  const [source, setSource] = useState("");
+  const [cid, setCid] = useState("");
+  const [base64Image, setBase64Image] = useState<string>();
+  const [errors, setErrors] = useState({});
+  const [detail, setDetail] = useState("");
 
-import { ToastContainer, toast } from 'react-toastify'
-import axios from 'axios'
-function NewFood (){
-  const [name, setName] = useState("")
-  const [glycemicindex, setGlycemicindex] = useState(0)
-  const [source, setSource] = useState("")
-  const [cid, setCid] = useState('0')
-  const [base64Image, setBase64Image] = useState("")
-
-
-  const handleFoodSubmit = (e:FormEvent) => {
-    
-
+  const handleFoodSubmit = (e: FormEvent) => {
     const body = {
-      name, glycemicindex, cid,source,base64Image
+      name,
+      glycemicindex,
+      cid: parseInt(cid),
+      source,
+      image: base64Image,
+      detail,
+      enabled: false,
     };
-    toast.loading("Yükleniyor.")
- 
+    toast.loading("Yükleniyor.");
 
+    foodAdd(body)
+      .then((res) => {
+        toast.dismiss();
+        toast.success("Ürün Başarıyla Kaydedildi");
+      })
+      .catch((err) => {
+        if (err.response.data.validationErrors) {
+          setErrors(err.response.data.validationErrors);
+        }
+        toast.dismiss();
+        toast.error("Ürün Kaydedilemedi");
+      });
+  };
 
+  //base64
 
-    axios.post("http://localhost:8080/foods/save",body).then( res => {
-     
-      toast.dismiss();
-      }
-   
-    ).catch( err => {
-      console.log("error:"+err);
-      toast.dismiss();
-      toast.error( "Bu yetkilerde bir kullanıcı yok!" )
-    })
-  
-  
-  }
+  const onChange = (e: any) => {
+    console.log("file", e.target.files[0]);
+    let file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = _handleReaderLoaded;
+      reader.readAsBinaryString(file);
+    }
+  };
 
+  const _handleReaderLoaded = (readerEvt: any) => {
+    let binaryString = readerEvt.target.result;
+    setBase64Image(btoa(binaryString));
+  };
 
-  const imageOnChange = (e:any, d:InputOnChangeData) => {
-    const file = e.target.files[0]
-    const size:number = file.size / 1024 // kb
-    if ( size > 10 ) { // 10 kb
-        toast.error("Lütfen max 10 kb bir resim seçiniz!")
-    }else {
-        getBase64(file).then( res => {
-            console.log('res', res)
-        })
-    } 
-}
+  const buttonEnabled =
+    name && base64Image && cid && glycemicindex && source && detail;
 
-const getBase64 = ( file: any ) => {
-return new Promise(resolve => {
-    let fileInfo;
-    let baseURL:any = "";
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      baseURL = reader.result
-      resolve(baseURL);
-    };
-    console.log(fileInfo);
-  });
-}
-
-
-
-
-return(<div style={{margin:5}}>
+  return (
+    <div style={{ margin: 5 }}>
       <ToastContainer />
-      <div style={{ marginTop:20,display: 'flex',
-          justifyContent:"center",
-          alignItems:"center",}}>
-            </div>
-    <Header icon as='h3' >
-    <Icon name='save outline' /> Ürün Kayıt Sayfası </Header>
-
-    <Form onSubmit={(e)=>{
-                
-              
-         
+      <div
+        style={{
+          marginTop: 20,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-          
-          > 
-            
-     
-          <Form.Input icon='food' width='5' fluid label='Adı' placeholder='Adı' />
-          <Form.Input icon='chart line'width='5'type='number' min='0' max='150' fluid label='Glisemik İndex' placeholder='Glisemik İndex' />
-          <Form.Select  width='5' label='Kategori' value={cid} fluid placeholder='Kategori' options={categories} search onChange={(e,d) => setCid( ""+d.value )} />
-        
-        
-      
-            <Form.Input icon='picture'  width='5' onChange={(e, d) => imageOnChange(e,d) } type='file' fluid label='Resim' placeholder='Resim' />
-            <Form.Input width='5' icon='external alternate' fluid label='Kaynak' placeholder='Kaynak' />
-     
-       
-        <Form.Button>Kaydet</Form.Button>
+      ></div>
+      <Header icon as="h3">
+        <Icon name="save outline" /> Ürün Kayıt Sayfası{" "}
+      </Header>
+
+      <Form onSubmit={(e) => {}}>
+        <Form.Input
+          icon="food"
+          width="5"
+          fluid
+          label="Adı"
+          placeholder="Adı"
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+        <Form.Input
+          icon="chart line"
+          width="5"
+          type="number"
+          min="0"
+          max="150"
+          fluid
+          label="Glisemik İndex"
+          placeholder="Glisemik İndex"
+          onChange={(e, d) => setGlycemicindex(+d.value)}
+        />
+        <Form.Select
+          width="2"
+          label="Kategori"
+          value={cid}
+          fluid
+          placeholder="Kategori"
+          options={categories}
+          search
+          onChange={(e, d) => setCid("" + d.value)}
+        />
+
+        <Form.Group>
+          <Form.Input
+            icon="picture"
+            width="5"
+            onChange={(e) => onChange(e)}
+            type="file"
+            fluid
+            label="Resim"
+            placeholder="Resim"
+          />
+
+          {/* <Form.Input  icon='food' width='5'size='large' fluid label='Resim Url' placeholder='Resim Url' onChange={(e)=>{setBase64Image(e.target.value)}} /> */}
+        </Form.Group>
+        <Form.TextArea
+          width="5"
+          size="large"
+          icon="info circle"
+          fluid
+          label="Detay"
+          placeholder="Detay"
+          onChange={(e) => {
+            setDetail(e.target.value);
+          }}
+        />
+        <Form.Input
+          width="5"
+          icon="external alternate"
+          fluid
+          label="Kaynak"
+          placeholder="Kaynak"
+          onChange={(e) => {
+            setSource(e.target.value);
+          }}
+        />
+
+        <Form.Button disabled={!buttonEnabled} onClick={handleFoodSubmit}>
+          Kaydet
+        </Form.Button>
       </Form>
-      <Segment textAlign='center' size='large' color='blue'>
-Ürün eklerken doğru bilgiler girdiğinizden emin olun    </Segment>
-</div>)
+      <Segment textAlign="center" size="large" color="blue">
+        Ürün eklerken doğru bilgiler girdiğinizden emin olun{" "}
+      </Segment>
+      <div style={{ marginBottom: 600 }}></div>
+    </div>
+  );
 }
 
 export default NewFood;
