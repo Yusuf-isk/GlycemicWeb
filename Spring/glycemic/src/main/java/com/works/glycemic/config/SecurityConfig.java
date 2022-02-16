@@ -2,10 +2,8 @@ package com.works.glycemic.config;
 
 import com.works.glycemic.services.UserService;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
@@ -32,19 +30,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // hangi yöntemle giriş yapılarak, rollere göre hangi servis kullanılcak?
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+<<<<<<< HEAD
         http.headers().frameOptions().disable();
 
+=======
+>>>>>>> a6b08924340b11d03508eeb62d12c63adedffbc7
         http
                 .cors().and()
                 .httpBasic()
                 .and()
                 .authorizeHttpRequests()
+<<<<<<< HEAD
                 .antMatchers("/foods/save","/foods/foodDelete","/foods/foodUpdate").permitAll()
                 .antMatchers( "foods/detail/**","/foods/userFoodList").permitAll()
                 .antMatchers("/foods/adminWaitFoodList").permitAll()
 
                 .antMatchers("/foods/list").hasAnyRole("user","admin")
                 .antMatchers("/register/userRegister", "/register/adminRegister","/register/login").permitAll()
+=======
+                .antMatchers("/foods/save","/foods/userFoodList","/foods/foodDelete","/foods/foodUpdate", "/register/login").hasAnyRole("user", "admin")
+                .antMatchers("/foods/adminWaitFoodList").hasRole("admin")
+                .antMatchers("/foods/list", "foods/detail/**").hasAnyRole("global","user", "admin")
+                .antMatchers("/register/userRegister", "/register/adminRegister").permitAll()
+>>>>>>> a6b08924340b11d03508eeb62d12c63adedffbc7
                 .and()
                 .csrf().disable()
                 .formLogin().disable()
