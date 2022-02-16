@@ -7,7 +7,7 @@
 
 **Client:** React, TypeScript, Redux
 
-**Server:** Spring, Spring Security, Sprin Boot
+**Server:** Spring, Spring Security, Spring Boot
 
   
 
